@@ -14,11 +14,11 @@ def get_all_products(urls):
 
     for url in urls:
         if '/SearchResults' in url:
-            search_page = BeautifulSoup(requests.get(url).text)
+            search_page = BeautifulSoup(requests.get(url).text, features='html.parser')
             model_urls = [urljoin(url, model_block.find('a')['href']) for model_block in search_page.find_all('div', {'class': 'gallery-item-content'})]
             products.extend(get_all_products(model_urls))
         elif '/models/' in url:
-            model_page = BeautifulSoup(requests.get(url).text)
+            model_page = BeautifulSoup(requests.get(url).text, features='html.parser')
             model_blocks = model_page.find_all('div', {'class': 'col-info-cell'})[1:]
             for model_block in model_blocks:
                 product_base = {
