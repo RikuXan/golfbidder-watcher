@@ -53,6 +53,10 @@ def watch_golfbidder():
                             if product[condition['label']] not in condition['values']:
                                 matches_conditions = False
                                 break
+                    elif condition['type'] == 'max_price':
+                        if product['price'] > condition['value']:
+                            matches_conditions = False
+                            break
 
                 if matches_conditions:
                     print(f"Found product matching conditions: {product['url']}")
